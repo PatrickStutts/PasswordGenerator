@@ -1,4 +1,5 @@
 //make strings with possible values 
+const characterTypes = [upper, lower, number, symbol];
  var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
  var lower = "abcdefghijklmnopqrstuvwxyz"
  var numeric = "0123456789"
@@ -25,14 +26,15 @@
    var randomCharacter = allowedCharacters[randomIndex];
    password = password.concat(randomCharacter);
  }
+
  //function to create passwordLength
  function choosePasswordLength() {
-    var passwordLength = Number(prompt("How many characters would you like your password to be?"));
+    length = Number(prompt("How many characters would you like your password to be?"));
     while (isNaN(length) || length < 8 || length > 128) length = Number(prompt("Length must be 8-128 characters. How many characters would you like your password to be?"));
  }
 
 // function for user to select charTypes
- function characterTypes() {
+ function chooseCharacterTypes() {
     var upper = confirm("Would you like uppercase letters");
     if(upper) {
       userSelection.push(upper);
@@ -48,13 +50,15 @@
     var number = confirm("Would you like to add numbers to your password?");
     if(number) {
       userSelection.push(number);
-    }
+    } 
+    return password
+}
   
 // provide params for function 
 function writePassword() {
   var passwordLength = choosePassLength();
   var characterTypes = chooseCharacterTypes();
-  var password = generatePassword(passLength, characterTypes);
+  var password = generatePassword(passwordLength, characterTypes);
   var passwordText = document.querySelector("#password");
   
   passwordText.value = password;
