@@ -1,35 +1,66 @@
-// Create vars for characters
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-var numbers = "1234567890";
-var specialChar = "!@#$%^&*()?/;:~";
+//make strings with possible values 
+ var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ var lower = "abcdefghijklmnopqrstuvwxyz"
+ var numeric = "0123456789"
+ var symbol = "!@#$%^&*()?/;:~"
+ //
+ var allowedCharacters = ""
+ if (characterTypes.hasUpper) {
+   allowedCharacters = allowedCharacters.concat(upper)
+ }
+ if (characterTypes.hasLower) {
+   allowedCharacters = allowedCharacters.concat(lower)
+ }
+ if (characterTypes.hasNumber) {
+   allowedCharacters = allowedCharacters.concat(number)
+ }
+ if (characterTypes.hasSymbol) {
+   allowedCharacters = allowedCharacters.concat(symbol)
+ }
+ // store password built
+ var password = "";
+ // random characters from string for each position
+ for (var i = 0; i < passLength; i++) {
+   var randomIndex = Math.floor(Math.random() * allowedCharacters.length);
+   var randomCharacter = allowedCharacters[randomIndex];
+   password = password.concat(randomCharacter);
+ }
+ //function to create passwordLength
+ function choosePasswordLength() {
+    var passwordLength = Number(prompt("How many characters would you like your password to be?"));
+    while (isNaN(length) || length < 8 || length > 128) length = Number(prompt("Length must be 8-128 characters. How many characters would you like your password to be?"));
+ }
 
- 
-// Ask for user input 
-    var askObject = {
-        askFunction: function(){
-        window.alert("To create your password, certain criteria must be met. Please answer the following questions:");
-        userPwLength = window.prompt("To start, how many characters long would you like your password to be?\nMinimum: 8 characters, and\nMaximum: 128 characters");
-        userUpper = window.confirm("We recommend you use a combination of upper and lowercase characters.\nWould you like to include capitalized letters?\nIf not, select 'cancel'.");
-        userLower = window.confirm("Would you like to include lowercase letters?\nIf not, select 'cancel'.");
-        userNumber = window.confirm("Would you like to include numeric characters in your password? If not, select 'cancel'.");
-        userSymbol = window.confirm("For added security, we suggest using special characters.\nWould you like to include special characters in your password?\nIf not, select 'cancel'.");
+// function for user to select charTypes
+ function characterTypes() {
+    var upper = confirm("Would you like uppercase letters");
+    if(upper) {
+      userSelection.push(upper);
     }
-//};
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
+    var lower = confirm("would you like lowercase letters");
+    if(lower) {
+      userSelection.push(lower);
+    }
+    var symbol = confirm("Would you like and Specail Characters");
+    if(symbol) {
+      userSelection.push(symbol);
+    }
+    var number = confirm("Would you like to add numbers to your password?");
+    if(number) {
+      userSelection.push(number);
+    }
+  
+// provide params for function 
 function writePassword() {
-
-  var passLength = choosePassLength();
+  var passwordLength = choosePassLength();
   var characterTypes = chooseCharacterTypes();
-
-  var password = generatePassword();
+  var password = generatePassword(passLength, characterTypes);
   var passwordText = document.querySelector("#password");
-
+  
   passwordText.value = password;
 
-} 
+}
+// Assignment Code
+var generateBtn = document.querySelector("#generate");
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
